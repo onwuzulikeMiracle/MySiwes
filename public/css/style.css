@@ -1,0 +1,265 @@
+/* ===========================================================
+   DESIGN TOKENS
+   ===========================================================
+   Every colour and spacing value the page uses is defined once,
+   here, as a CSS custom property (a "variable"). Change a value
+   here and it updates everywhere it's used — you never need to
+   hunt through the file for a hex code again.
+
+   Theme: royal blue + white, styled a little like a physical
+   school attendance register / ledger book — that's where the
+   serif headings and the ruled double-line under each section
+   title come from.
+   ------------------------------------------------------------ */
+:root {
+  --royal-blue:       #1E3A8A; /* deep blue — banner, headings, table headers */
+  --royal-blue-bright: #2952E5; /* brighter blue — buttons, links, focus rings */
+  --royal-blue-pale:  #EEF2FF; /* very pale blue — card header strips, hover */
+  --royal-blue-line:  #C7D2FE; /* light blue — borders, rules */
+  --ink:              #1B2340; /* near-navy body text (softer than pure black) */
+  --white:            #FFFFFF;
+  --danger:           #B91C1C; /* delete button / error banner */
+  --danger-pale:      #FDE8E8;
+
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(30, 58, 138, 0.08), 0 1px 2px rgba(30, 58, 138, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+  color: var(--ink);
+  background: var(--white);
+}
+
+/* Headings use a serif face — a deliberate contrast with the sans-serif
+   body text, and a nod to the look of a printed register/ledger. */
+h1, h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--royal-blue);
+}
+
+/* ===========================================================
+   TOP BANNER
+   =========================================================== */
+.app-banner {
+  background: var(--royal-blue);
+  color: var(--white);
+  margin: 0 -1rem 2rem;
+  padding: 2rem 1rem 1.5rem;
+  border-bottom: 4px solid var(--royal-blue-bright);
+}
+
+.app-banner h1 {
+  color: var(--white);
+  margin: 0 0 0.35rem;
+  font-size: 1.85rem;
+  letter-spacing: 0.01em;
+}
+
+.app-banner .subtitle {
+  color: var(--royal-blue-pale);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ===========================================================
+   SECTIONS ("cards")
+   =========================================================== */
+section {
+  background: var(--white);
+  border: 1px solid var(--royal-blue-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.4rem 1.6rem 1.6rem;
+  margin-bottom: 1.75rem;
+}
+
+h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+  padding-bottom: 0.6rem;
+  font-size: 1.15rem;
+  /* The "ruled ledger" double line under every section title. */
+  border-bottom: 3px double var(--royal-blue-line);
+}
+
+/* Small circular numeral before each heading. The numbers are a real
+   workflow order (add students -> take today's record -> view the
+   combined report -> export the file), so they earn their place here
+   rather than just decorating. */
+.step-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--royal-blue);
+  color: var(--white);
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+}
+
+.step-hint {
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: #5b6b9a;
+}
+
+/* ===========================================================
+   ERROR BANNER (see showFatalError() in app.js)
+   =========================================================== */
+.error-banner {
+  background: var(--danger-pale);
+  border: 1px solid #f8b4b4;
+  color: var(--danger);
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+/* ===========================================================
+   FORMS, INPUTS, LABELS
+   =========================================================== */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--royal-blue);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  max-width: 220px;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--royal-blue-line);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--white);
+}
+
+/* A clear, visible focus ring for keyboard users — don't remove this
+   in the name of tidiness, it's an accessibility essential. */
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 2px solid var(--royal-blue-bright);
+  outline-offset: 1px;
+}
+
+/* ===========================================================
+   BUTTONS
+   =========================================================== */
+button {
+  padding: 0.5rem 1.1rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--royal-blue-bright);
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+button:hover {
+  background: var(--royal-blue);
+}
+
+.small-btn {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  margin-left: 0.6rem;
+  background: var(--danger);
+}
+
+.small-btn:hover {
+  background: #921515;
+}
+
+/* ===========================================================
+   STUDENT LIST
+   =========================================================== */
+ul#student-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul#student-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.1rem;
+  border-bottom: 1px solid var(--royal-blue-pale);
+}
+
+ul#student-list li:last-child {
+  border-bottom: none;
+}
+
+/* ===========================================================
+   TABLES
+   =========================================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+thead th {
+  text-align: left;
+  padding: 0.55rem 0.6rem;
+  background: var(--royal-blue);
+  color: var(--white);
+  font-weight: 600;
+}
+
+thead th:first-child {
+  border-top-left-radius: 6px;
+}
+thead th:last-child {
+  border-top-right-radius: 6px;
+}
+
+tbody td {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--royal-blue-pale);
+}
+
+/* Faint zebra striping makes rows easier to track across the row on a
+   wide table, without needing colour beyond the theme. */
+tbody tr:nth-child(even) {
+  background: var(--royal-blue-pale);
+}
+
+input.behavior-notes {
+  width: 100%;
+}
